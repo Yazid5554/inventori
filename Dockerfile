@@ -12,6 +12,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     && docker-php-ext-install pdo_mysql mbstring xml zip gd bcmath
 
+# Fix Apache MPM conflict
+RUN a2dismod mpm_event && a2enmod mpm_prefork
+
 # Enable mod_rewrite
 RUN a2enmod rewrite
 
