@@ -12,11 +12,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     && docker-php-ext-install pdo_mysql mbstring xml zip gd bcmath
 
-# Fix Apache MPM conflict
-RUN a2dismod mpm_event && a2enmod mpm_prefork
-
-# Enable mod_rewrite
-RUN a2enmod rewrite
+# Fix Apache MPM
+RUN a2dismod mpm_event mpm_worker || true \
+    && a2enmod mpm_prefork rewrite
 
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -39,3 +37,5 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 EXPOSE 80
+
+CMD ["apache2-foreground"]
