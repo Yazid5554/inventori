@@ -1,10 +1,11 @@
 FROM php:8.2-apache
 
-# Install extensions
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libxml2-dev \
     libzip-dev \
+    libonig-dev \
     zip \
     unzip \
     git \
