@@ -23,7 +23,7 @@ class DashboardController extends Controller
                                     ->count(),
         ];
 
-        $barang_terbaru = Barang::with('lokasi')->latest()->take(5)->get();
+        $barang_terbaru = Barang::with('lokasi')->latest()->paginate(5);
 
         return view('dashboard', compact('stats', 'barang_terbaru'));
     }

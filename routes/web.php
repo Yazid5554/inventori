@@ -11,6 +11,7 @@ use App\Http\Controllers\KerusakanController;
 use App\Http\Controllers\PerbaikanController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\KomponenController;
+use App\Http\Controllers\ProfileController;
 
 // Public
 Route::get('/', fn() => redirect()->route('login'));
@@ -21,6 +22,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Auth — semua role
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/profile/avatar', [\App\Http\Controllers\ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
 
     Route::get('/barang/{barang}/print-qr', [BarangController::class, 'printQr'])->name('barang.print-qr');
     Route::get('/barang/print-qr-semua', [BarangController::class, 'printQrSemua'])->name('barang.print-qr-semua');

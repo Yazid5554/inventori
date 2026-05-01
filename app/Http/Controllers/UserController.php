@@ -32,7 +32,7 @@ class UserController extends Controller
         User::create($validated);
 
         return redirect()->route('users.index')
-                         ->with('success', 'User berhasil ditambahkan.');
+            ->with('success', 'User berhasil ditambahkan.');
     }
 
     public function edit(User $user)
@@ -56,7 +56,7 @@ class UserController extends Controller
         $user->update($validated);
 
         return redirect()->route('users.index')
-                         ->with('success', 'User berhasil diupdate.');
+            ->with('success', 'User berhasil diupdate.');
     }
 
     public function destroy(User $user)
@@ -67,6 +67,6 @@ class UserController extends Controller
 
         $user->delete();
         return redirect()->route('users.index')
-                         ->with('success', 'User berhasil dihapus.');
+            ->with('success', 'User berhasil dihapus.');
     }
 }
